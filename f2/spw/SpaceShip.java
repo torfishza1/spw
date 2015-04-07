@@ -16,7 +16,9 @@ public class SpaceShip extends Sprite{
 	public void draw(Graphics2D g) {
 		g.setColor(Color.GREEN);
 		g.fillRect(x, y, width, height);
-		
+				g.fillRect(x-5, y+10, 20,40);
+                g.fillRect(x-20, y+17, 50,7);
+                g.fillRect(x-13, y+35, 35,15);
 	}
 
 	public void move(int direction){

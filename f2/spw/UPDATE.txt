@@ -1,0 +1,19 @@
+PATH1 :
+ 
+UPDATE : ให้ยานสามารถ  เคลื่อนที่ ซ้าย ขวา บน ล่างได้
+
+แก้ไขที่ SpaceShip.java
+
+[movey]
+
+PATH2 :
+
+UPDATE : รูปแบบยานอวกาศ และ ลดระดับความยาก
+
+แก้ไขที่ Main.java / SpaceShip.java / GameEngine.java
+
+Main แก้ไขให้ ขนาดเริ่มต้นของ SpaceShip มีขนาดเพียง 10x10
+SpaceShip ปรับแต่งให้ spaceship สวยงามขึ้น
+GameEngine ลดระดับความยากของ บอทที่สร้างขึ้น
+
+

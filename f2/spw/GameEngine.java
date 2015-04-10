@@ -62,7 +62,7 @@ public class GameEngine implements KeyListener, GameReporter{
 			if(!e.isAlive()){
 				e_iter.remove();
 				gp.sprites.remove(e);
-				score += 1000;
+				score += 100;
 			}
 		}
 		
@@ -74,15 +74,30 @@ public class GameEngine implements KeyListener, GameReporter{
 			er = e.getRectangle();
 			if(er.intersects(vr)){
 				die();
+				//restartG();
 				return;
 			}
+			
 		}
 	}
 	
 	public void die(){
 		timer.stop();
 	}
-	
+
+	public void restartG(){
+		die();
+		timer.restart();
+		for(Enemy e : enemies){
+			e.enemydie();
+		}
+	}
+
+	public boolean running(){
+		return timer.isRunning();
+
+
+	}
 	void controlVehicle(KeyEvent e) {
 		switch (e.getKeyCode()) {
 		case KeyEvent.VK_LEFT:

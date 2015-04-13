@@ -19,7 +19,7 @@ public class Main {
 		frame.setVisible(true);
 		
 		engine.start();
-		if(engine.running() != true)
-			engine.restartG();
+		 while(engine.running() != true)
+			engine.die();  
 	}
 }

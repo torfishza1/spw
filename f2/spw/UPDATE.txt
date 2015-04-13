@@ -26,4 +26,8 @@ GameEngine สร้างฟังก์ชั่น restartG เพื่อให้ทำการ Clear enemy ทั้งหมดเพื่อให้เริ่
 	    สร้างฟังก์ชั่น running เพื่อให้เมื่อ timer.stop ดับแล้วให้ timer.isRunning ตรวจสอบว่า true 	  or false
 Enemy สร้างฟังก์ชั่น enemydie เพื่อกำหนดให้ enemy ตาย
 
+PATH4 :
+
+UPDATE : ทำให้เกมส์สามารถหยุดเกมส์[Pause]ได้เมื่อกด P และเมื่อกด T จะทำให้เกมส์เริ่มต่อได้
+
 

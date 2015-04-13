@@ -85,18 +85,33 @@ public class GameEngine implements KeyListener, GameReporter{
 		timer.stop();
 	}
 
-	public void restartG(){
+	/* public void restartG(){
 		die();
 		timer.restart();
 		for(Enemy e : enemies){
 			e.enemydie();
 		}
-	}
+	} */
 
 	public boolean running(){
 		return timer.isRunning();
 
 
+	}
+	void controlEngine(KeyEvent e){
+		//Enemy d = new Enemy ();
+		switch (e.getKeyCode()){
+		case KeyEvent.VK_P:
+		//	for(Enemy e : enemies){
+			//while (timer.isRunning()==true) {
+			timer.stop();	
+			
+		
+		case KeyEvent.VK_T:
+			timer.start();
+		//if(timer.isRunning == 0)
+		//	timer.start();
+		}
 	}
 	void controlVehicle(KeyEvent e) {
 		switch (e.getKeyCode()) {
@@ -125,6 +140,7 @@ public class GameEngine implements KeyListener, GameReporter{
 	@Override
 	public void keyPressed(KeyEvent e) {
 		controlVehicle(e);
+		controlEngine(e);
 		
 	}
 

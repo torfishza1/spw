@@ -15,6 +15,7 @@ public class GameEngine implements KeyListener, GameReporter{
 	GamePanel gp;
 		
 	private ArrayList<Enemy> enemies = new ArrayList<Enemy>();	
+	private ArrayList<Item> items = new ArrayList<Item>();
 	private SpaceShip v;	
 	
 	private Timer timer;
@@ -45,8 +46,12 @@ public class GameEngine implements KeyListener, GameReporter{
 	
 	private void generateEnemy(){
 		Enemy e = new Enemy((int)(Math.random()*390), 30);
+		Item f = new Item((int)(Math.random()*390), 30);
 		gp.sprites.add(e);
 		enemies.add(e);
+		gp.sprites.add(f);
+		items.add(f);
+
 	}
 	
 	private void process(){
@@ -65,6 +70,17 @@ public class GameEngine implements KeyListener, GameReporter{
 				score += 100;
 			}
 		}
+		  Iterator<Item> item_s = items.iterator();
+		while(item_s.hasNext()){
+			Item f = item_s.next();
+			f.proceed();
+			
+			  if(!f.isAlive()){
+				item_s.remove();
+				gp.sprites.remove(f);
+				score += 0;
+			}   
+		}  
 		
 		gp.updateGameUI(this);
 		
@@ -77,9 +93,20 @@ public class GameEngine implements KeyListener, GameReporter{
 				//restartG();
 				return;
 			}
+
+		}
+		for(Item f : items){
+			er = f.getRectangle();
+			if(er.intersects(vr)){
+				score += 10000;
+				//die();
+				//restartG();
+				return;
+			}
 			
 		}
 	}
+	
 	
 	public void die(){
 		timer.stop();
@@ -95,9 +122,10 @@ public class GameEngine implements KeyListener, GameReporter{
 
 	public boolean running(){
 		return timer.isRunning();
-
-
 	}
+
+
+	
 	void controlEngine(KeyEvent e){
 		//Enemy d = new Enemy ();
 		switch (e.getKeyCode()){

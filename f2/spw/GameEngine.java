@@ -15,10 +15,12 @@ public class GameEngine implements KeyListener, GameReporter{
 	GamePanel gp;
 		
 	private ArrayList<Enemy> enemies = new ArrayList<Enemy>();	
+	private ArrayList<Item> items = new ArrayList<Item>();
 	private SpaceShip v;	
 	
 	private Timer timer;
 	
+	private int nuclear_count=0;
 	private long score = 0;
 	private double difficulty = 0.2;
 	
@@ -45,8 +47,12 @@ public class GameEngine implements KeyListener, GameReporter{
 	
 	private void generateEnemy(){
 		Enemy e = new Enemy((int)(Math.random()*390), 30);
+		Item f = new Item((int)(Math.random()*390), 30);
 		gp.sprites.add(e);
 		enemies.add(e);
+		gp.sprites.add(f);
+		items.add(f);
+
 	}
 	
 	private void process(){
@@ -62,9 +68,20 @@ public class GameEngine implements KeyListener, GameReporter{
 			if(!e.isAlive()){
 				e_iter.remove();
 				gp.sprites.remove(e);
-				score += 1000;
+				score += 100;
 			}
 		}
+		  Iterator<Item> item_s = items.iterator();
+		while(item_s.hasNext()){
+			Item f = item_s.next();
+			f.proceed();
+			
+			  if(!f.isAlive()){
+				item_s.remove();
+				gp.sprites.remove(f);
+				score += 0;
+			}   
+		}  
 		
 		gp.updateGameUI(this);
 		
@@ -74,15 +91,63 @@ public class GameEngine implements KeyListener, GameReporter{
 			er = e.getRectangle();
 			if(er.intersects(vr)){
 				die();
+				//restartG();
 				return;
 			}
+
+		}
+		for(Item f : items){
+			er = f.getRectangle();
+			if(er.intersects(vr)){
+				score += 10000;
+				//die();
+				//restartG();
+				return;
+			}
+			
 		}
 	}
 	
+	public void checkcase(){
+		if(score/100000>=1&&score%100000==0)
+			nuclear_count++;
+	}
+	public int getNuclear(){
+		return nuclear_count;
+	}
 	public void die(){
 		timer.stop();
 	}
+
+	/* public void restartG(){
+		die();
+		timer.restart();
+		for(Enemy e : enemies){
+			e.enemydie();
+		}
+	} */
+
+	public boolean running(){
+		return timer.isRunning();
+	}
+
+
 	
+	void controlEngine(KeyEvent e){
+		//Enemy d = new Enemy ();
+		switch (e.getKeyCode()){
+		case KeyEvent.VK_P:
+		//	for(Enemy e : enemies){
+			//while (timer.isRunning()==true) {
+			timer.stop();	
+			
+		
+		case KeyEvent.VK_T:
+			timer.start();
+		//if(timer.isRunning == 0)
+		//	timer.start();
+		}
+	}
 	void controlVehicle(KeyEvent e) {
 		switch (e.getKeyCode()) {
 		case KeyEvent.VK_LEFT:
@@ -110,6 +175,7 @@ public class GameEngine implements KeyListener, GameReporter{
 	@Override
 	public void keyPressed(KeyEvent e) {
 		controlVehicle(e);
+		controlEngine(e);
 		
 	}
 

@@ -92,6 +92,7 @@ public class GameEngine implements KeyListener, GameReporter{
 			if(er.intersects(vr)){
 				die();
 				//restartG();
+<<<<<<< HEAD
 				return;
 			}
 
@@ -104,10 +105,25 @@ public class GameEngine implements KeyListener, GameReporter{
 				//restartG();
 				return;
 			}
+=======
+				return;
+			}
+
+		}
+		for(Item f : items){
+			er = f.getRectangle();
+			if(er.intersects(vr)){
+				score += 10000;
+				//die();
+				//restartG();
+				return;
+			}
+>>>>>>> 21fc75ca26c0d944cf4bfbedd7ede111c4f69b4b
 			
 		}
 	}
 	
+<<<<<<< HEAD
 	public void checkcase(){
 		if(score/100000>=1&&score%100000==0)
 			nuclear_count++;
@@ -115,6 +131,9 @@ public class GameEngine implements KeyListener, GameReporter{
 	public int getNuclear(){
 		return nuclear_count;
 	}
+=======
+	
+>>>>>>> 21fc75ca26c0d944cf4bfbedd7ede111c4f69b4b
 	public void die(){
 		timer.stop();
 	}

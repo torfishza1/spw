@@ -17,6 +17,22 @@ SpaceShip ปรับแต่งให้ spaceship สวยงามขึ้น
 GameEngine ลดระดับความยากของ บอทที่สร้างขึ้น
 
 PATH3 :
+<<<<<<< HEAD
+=======
+
+UPDATE : ทำให้เมื่อยานอวกาศโดนชน ให้เกมส์มัน Restart เมื่อกดปุ่ม R  [ยัง Fail อยู่]
+
+แก้ไขที่ Main.java / GameEngine.java / Enemy.java
+Main สร้างเงื่อนไข ให้เมื่อ time.isRunning เมื่อเป็น False จะทำการ Restart
+GameEngine สร้างฟังก์ชั่น restartG เพื่อให้ทำการ Clear enemy ทั้งหมดเพื่อให้เริ่มต้นใหม่
+	    สร้างฟังก์ชั่น running เพื่อให้เมื่อ timer.stop ดับแล้วให้ timer.isRunning ตรวจสอบว่า true 	  or false
+Enemy สร้างฟังก์ชั่น enemydie เพื่อกำหนดให้ enemy ตาย
+
+PATH4 :
+
+UPDATE : ทำให้เกมส์สามารถหยุดเกมส์[Pause]ได้เมื่อกด P และเมื่อกด T จะทำให้เกมส์เริ่มต่อได้
+
+>>>>>>> 21fc75ca26c0d944cf4bfbedd7ede111c4f69b4b
 
 UPDATE : ทำให้เมื่อยานอวกาศโดนชน ให้เกมส์มัน Restart เมื่อกดปุ่ม R  [ยัง Fail อยู่]
 

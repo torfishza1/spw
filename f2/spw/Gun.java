@@ -18,7 +18,7 @@ public class Gun extends Sprite{
 
 	@Override
 	public void draw(Graphics2D g) {
-		g.setColor(Color.RED);
+		g.setColor(Color.BLUE);
 		g.fillRect(x,y-10, width, height);
               //  g.fillRect(x+6,y, width, height);
               //  g.fillRect(x+20,y+25, width, height-20);

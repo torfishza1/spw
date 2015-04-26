@@ -5,27 +5,42 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
+import java.io.IOException;
+import java.io.File;
 
 public class GamePanel extends JPanel {
 	
 	private BufferedImage bi;	
+	public BufferedImage bg;
 	Graphics2D big;
 	ArrayList<Sprite> sprites = new ArrayList<Sprite>();
 
+
 	public GamePanel() {
 		bi = new BufferedImage(400, 600, BufferedImage.TYPE_INT_ARGB);
+		
 		big = (Graphics2D) bi.getGraphics();
 		big.setBackground(Color.BLACK);
+		try{
+			//bg = ImageIO.read(new File("f2/spw/Background.png"));
+			loadImage();
+		}
+		catch(IOException e){
+			
+		}
+		
 	}
+	 private void loadImage() throws IOException{
+        bg = ImageIO.read(new File("f2/spw/Background.png"));
+    } 
 
 	public void updateGameUI(GameReporter reporter){
 		big.clearRect(0, 0, 400, 600);
-		
+		big.drawImage(bg, 0, 0, 400, 600, null);
 		big.setColor(Color.WHITE);		
 		big.drawString(String.format("%08d", reporter.getScore()), 300, 20);
-		big.drawString(String.format("Nuclear : %01d", reporter.getNuclear()), 20, 20);
 		for(Sprite s : sprites){
 			s.draw(big);
 		}

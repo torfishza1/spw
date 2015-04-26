@@ -52,3 +52,6 @@ UPDATE : สร้าง ไฟล์ java ชื่อ item เพื่อให้เก็บแล้ว จะได้มี BONUS [Score]เพิ่มมา
 
 PATH6 :
 UPDATE : สร้าง ตัวแสดงผล Nuclear เมื่อมีคะแนนครบทุกๆ 100000 แต้ม[แต่ค่าของ Nuclear ที่เพิ่มขึ้นยังไม่แสดงผล]
+
+PATH7 : 
+UPDATE : ใส่ Background ในเกมส์ 

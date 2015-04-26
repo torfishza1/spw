@@ -16,6 +16,7 @@ public class GameEngine implements KeyListener, GameReporter{
 		
 	private ArrayList<Enemy> enemies = new ArrayList<Enemy>();	
 	private ArrayList<Item> items = new ArrayList<Item>();
+	private ArrayList<Gun> shootings = new ArrayList<>();
 	private SpaceShip v;	
 	
 	private Timer timer;
@@ -71,32 +72,48 @@ public class GameEngine implements KeyListener, GameReporter{
 				score += 100;
 			}
 		}
-		  Iterator<Item> item_s = items.iterator();
-		while(item_s.hasNext()){
-			Item f = item_s.next();
-			f.proceed();
+		Iterator<Item> item_s = items.iterator();
+			while(item_s.hasNext()){
+				Item f = item_s.next();
+				f.proceed();
 			
-			  if(!f.isAlive()){
+			 if(!f.isAlive()){
 				item_s.remove();
 				gp.sprites.remove(f);
 				score += 0;
 			}   
 		}  
+		Iterator<Gun> s_iter = shootings.iterator();
+                while(s_iter.hasNext()){
+                    Gun s = s_iter.next();
+                    s.proceed();
+                }
+
 		
 		gp.updateGameUI(this);
 		
 		Rectangle2D.Double vr = v.getRectangle();
 		Rectangle2D.Double er;
+		Rectangle2D.Double gr;
 		for(Enemy e : enemies){
 			er = e.getRectangle();
+
+			for(Gun s : shootings ){
+            gr = s.getRectangle();
+            if(gr.intersects(er)){  
+              gp.sprites.remove(e);
+              e.enemydie();
+              return;
+                                }
+                        }
+
 			if(er.intersects(vr)){
 				die();
-				//restartG();
-<<<<<<< HEAD
 				return;
 			}
-
 		}
+
+
 		for(Item f : items){
 			er = f.getRectangle();
 			if(er.intersects(vr)){
@@ -105,25 +122,19 @@ public class GameEngine implements KeyListener, GameReporter{
 				//restartG();
 				return;
 			}
-=======
-				return;
-			}
 
 		}
-		for(Item f : items){
-			er = f.getRectangle();
-			if(er.intersects(vr)){
-				score += 10000;
-				//die();
-				//restartG();
-				return;
-			}
->>>>>>> 21fc75ca26c0d944cf4bfbedd7ede111c4f69b4b
-			
-		}
-	}
+		/* for(Gun s : shootings ){
+            gr = s.getRectangle();
+            if(gr.intersects(er)){  
+              gp.sprites.remove(e);
+              e.enemydie();
+              return;
+                                }
+                        }
 	
-<<<<<<< HEAD
+	*/
+	}
 	public void checkcase(){
 		if(score/100000>=1&&score%100000==0)
 			nuclear_count++;
@@ -131,9 +142,7 @@ public class GameEngine implements KeyListener, GameReporter{
 	public int getNuclear(){
 		return nuclear_count;
 	}
-=======
-	
->>>>>>> 21fc75ca26c0d944cf4bfbedd7ede111c4f69b4b
+
 	public void die(){
 		timer.stop();
 	}
@@ -159,10 +168,11 @@ public class GameEngine implements KeyListener, GameReporter{
 		//	for(Enemy e : enemies){
 			//while (timer.isRunning()==true) {
 			timer.stop();	
-			
+			break;
 		
 		case KeyEvent.VK_T:
 			timer.start();
+			break;
 		//if(timer.isRunning == 0)
 		//	timer.start();
 		}
@@ -184,8 +194,18 @@ public class GameEngine implements KeyListener, GameReporter{
 		case KeyEvent.VK_D:
 			difficulty += 0.1;
 			break;
+		case KeyEvent.VK_SPACE:
+            //gp.big.setBackground(Color.BLACK);
+			fire();
+			//d++;
+			break;
 		}
 	}
+	 public void fire(){
+            Gun s = new Gun((v.x) + (v.width/2) - 3 , v.y);
+            gp.sprites.add(s);
+            shootings.add(s);
+        }
 
 	public long getScore(){
 		return score;

@@ -55,3 +55,10 @@ UPDATE : สร้าง ตัวแสดงผล Nuclear เมื่อมีคะแนนครบทุกๆ 100000 แต้ม[แต่ค่าของ Nucle
 
 PATH7 : 
 UPDATE : ใส่ Background ในเกมส์ 
+
+PATH8 : 
+UPDATE : สามารถทำให้ปืนยิงได้ โดยทำการกด Space bar เมื่อยิง
+
+PATH9 :
+UPDATE : เพิ่มนิวเคลียร์เมื่อ มีคะแนนถึงที่กำหนด
+UPDATE : CAN SHOOT NUCLEAR WHEN GET THE SCORE > 8000

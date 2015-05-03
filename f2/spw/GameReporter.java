@@ -5,4 +5,6 @@ public interface GameReporter {
 	long getScore();
 	int getNuclear();
 	int getNumfire();
+	int getenedie();
+	long getMainscore();
 }

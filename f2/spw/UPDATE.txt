@@ -62,3 +62,7 @@ UPDATE : สามารถทำให้ปืนยิงได้ โดยทำการกด Space bar เมื่อยิง
 PATH9 :
 UPDATE : เพิ่มนิวเคลียร์เมื่อ มีคะแนนถึงที่กำหนด
 UPDATE : CAN SHOOT NUCLEAR WHEN GET THE SCORE > 8000
+
+PATH10 :
+UPDATE : เมื่อตาย (โดนชน) เมื่อ R จะทำการ Restart ตัวเกมส์จะทำการ Save score ที่มากที่สุดนับจากเริ่มเข้าเกมส์ [ตอน java Main] ในตอนเล่นไม่สามารถกด Restart ได้
+UPDATE : *10* When die it can Restart game by press R and save highest score 

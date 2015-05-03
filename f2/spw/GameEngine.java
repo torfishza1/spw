@@ -26,8 +26,11 @@ public class GameEngine implements KeyListener, GameReporter{
 	
 	private int nucount=0;
 	private long score = 0;
-	private int d = 30;
+	private long mainscore = 0;
+	private int d = 0;
+	private int enedie = 0;
 	private double difficulty = 0.1;
+	private double difficulty2 = 0.1;
 	
 	public GameEngine(GamePanel gp, SpaceShip v) {
 		this.gp = gp;
@@ -52,35 +55,46 @@ public class GameEngine implements KeyListener, GameReporter{
 	
 	private void generateEnemy(){
 		Enemy e = new Enemy((int)(Math.random()*390), 30);
-		Item f = new Item((int)(Math.random()*390), 30);
-		PickNuclear pn = new PickNuclear((int)(Math.random()*390), 30);
 		
 		gp.sprites.add(e);
 		enemies.add(e);
+		
+
+	}
+	private void generateItem(){
+		Item f = new Item((int)(Math.random()*400), 10);
+		PickNuclear pn = new PickNuclear((int)(Math.random()*400), 10);
 		gp.sprites.add(f);
 		items.add(f);
 		gp.sprites.add(pn);
 		pickNuclears.add(pn);
 
 	}
-	
+
+
 	private void process(){
 		if(Math.random() < difficulty){
 			generateEnemy();
+			//generateItem();
+		}
+		if(Math.random() < difficulty2){
+			//generateEnemy();
+			generateItem();
 		}
 		
 		Iterator<Enemy> e_iter = enemies.iterator();
 		while(e_iter.hasNext()){
 			Enemy e = e_iter.next();
 			e.proceed();
-			
+			//if(timer.isRunning==1){
 			if(!e.isAlive()){
 				e_iter.remove();
 				gp.sprites.remove(e);
-				score += 100;
-				checkcase();
+				//score += 100;
+				//checkcase();
+			
 			}
-		}
+		} 
 		Iterator<Item> item_s = items.iterator();
 			while(item_s.hasNext()){
 				Item f = item_s.next();
@@ -132,7 +146,10 @@ public class GameEngine implements KeyListener, GameReporter{
             gr = s.getRectangle();
             if(gr.intersects(er)){  
               gp.sprites.remove(e);
+              score += 100;
+				checkcase();
               e.enemydie();
+              enedie++;
               return;
                                 }
                         }
@@ -142,11 +159,15 @@ public class GameEngine implements KeyListener, GameReporter{
                                 if(sr.intersects(er)){  
                                     gp.sprites.remove(e);
                                     e.enemydie();
+                                    score += 100;
+									checkcase();
+                                    enedie++;
                                     return;
                                 }
                         }
 			if(er.intersects(vr)){
 				die();
+
 				return;
 			}
 		}
@@ -185,6 +206,7 @@ public class GameEngine implements KeyListener, GameReporter{
 	public void checkcase(){
 	if(score/8000>=1&&score%8000==0)
 		nucount++;
+	
 	}
 	public int getNuclear(){
 	return nucount;
@@ -196,6 +218,7 @@ public class GameEngine implements KeyListener, GameReporter{
 			//gp.big.setBackground(Color.RED);
 			for(Enemy e : enemies){
 			e.enemydie();
+			enedie++;
 			}
 		}
 	}
@@ -203,7 +226,12 @@ public class GameEngine implements KeyListener, GameReporter{
 	public int getNumfire(){
 		return d ;
 	}
-
+	public long getMainscore(){
+		return mainscore ;
+	}
+	public int getenedie(){
+		return enedie;
+	}
 	public void die(){
 		timer.stop();
 	}
@@ -220,7 +248,36 @@ public class GameEngine implements KeyListener, GameReporter{
 	//	return timer.isRunning();
 	//}
 
-
+	void RestartGame(){
+		if(timer.isRunning()!=true){
+		if(mainscore <= score)
+			mainscore = score ;
+		//firenu();
+		for(Enemy e : enemies){
+			gp.sprites.remove(e);
+            e.enemydie();
+            
+        }
+		for(Item f : items){
+			gp.sprites.remove(f);
+            f.enemydie();
+        }
+        for(PickNuclear pn : pickNuclears){
+        	gp.sprites.remove(pn);
+            pn.enemydie();
+        }
+		
+		d = 0;
+		score = 0;
+		enedie =0;
+		nucount =0;
+		difficulty = 0.1;
+		timer.stop();
+		timer.restart();
+		timer.start();
+		score = 0;
+	}
+}
 	
 	void controlEngine(KeyEvent e){
 		//Enemy d = new Enemy ();
@@ -229,6 +286,13 @@ public class GameEngine implements KeyListener, GameReporter{
 		//	for(Enemy e : enemies){
 			//while (timer.isRunning()==true) {
 			timer.stop();	
+			break;
+		
+		case KeyEvent.VK_R:
+		//	for(Enemy e : enemies){
+			//while (timer.isRunning()==true) {
+
+			RestartGame();	
 			break;
 		
 		case KeyEvent.VK_T:
